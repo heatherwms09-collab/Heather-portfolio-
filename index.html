@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heather Williams · Mechanical Design Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:      #0A0E1A;
+      --navy:     #0D1B2E;
+      --steel:    #142236;
+      --cyan:     #00BFFF;
+      --cyan-dim: #007FAA;
+      --amber:    #E8A030;
+      --mist:     #EDF3FF;
+      --ghost:    #7A90AD;
+      --rule:     rgba(0,191,255,0.12);
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --font-mono:    'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--mist);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(10,14,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-name {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.4rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ghost);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-left {
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Blueprint grid overlay */
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,191,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,191,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    /* Corner crosshair accents */
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      top: 2.5rem; left: 2.5rem;
+      width: 24px; height: 24px;
+      border-top: 1px solid var(--cyan);
+      border-left: 1px solid var(--cyan);
+      opacity: 0.5;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.8rem;
+      position: relative;
+    }
+    .hero-eyebrow::before {
+      content: '// ';
+      opacity: 0.4;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(3.2rem, 6vw, 5.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--mist);
+      position: relative;
+    }
+    .hero-name span {
+      display: block;
+      color: var(--cyan);
+    }
+
+    .hero-tagline {
+      margin-top: 2rem;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--ghost);
+      max-width: 420px;
+      position: relative;
+    }
+    .hero-tagline strong {
+      color: var(--mist);
+      font-weight: 500;
+    }
+
+    .hero-meta {
+      margin-top: 2.8rem;
+      display: flex;
+      gap: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--ghost);
+      text-transform: uppercase;
+      position: relative;
+    }
+    .hero-meta span { border-right: 1px solid var(--rule); padding-right: 2rem; }
+    .hero-meta span:last-child { border-right: none; }
+
+    .hero-cta {
+      margin-top: 3rem;
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--cyan);
+      padding: 0.85rem 2rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .hero-cta:hover { background: #33CCFF; transform: translateY(-1px); }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(20%) contrast(1.05);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,14,26,0.3) 0%, transparent 60%);
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid rgba(0,191,255,0.2);
+    }
+    .hero-badge-item {
+      padding: 1.2rem 1.8rem;
+      background: rgba(10,14,26,0.7);
+      backdrop-filter: blur(8px);
+    }
+    .hero-badge-item:first-child {
+      border-right: 1px solid rgba(0,191,255,0.2);
+    }
+    .hero-badge-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.25rem;
+    }
+    .hero-badge-value {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--mist);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SHARED SECTION STYLES ── */
+    section { padding: 6rem 0; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.6rem;
+    }
+    .section-eyebrow::before { content: '// '; opacity: 0.4; }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--mist);
+      margin-bottom: 3rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--navy); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .stat-block {
+      border-left: 2px solid var(--cyan);
+      padding-left: 1.5rem;
+    }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ghost);
+      margin-top: 0.3rem;
+    }
+    .about-body {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--ghost);
+    }
+    .about-body p { margin-bottom: 1.4rem; }
+    .about-body p:last-child { margin-bottom: 0; }
+    .about-body strong { color: var(--mist); font-weight: 500; }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--rule);
+      color: var(--ghost);
+      background: var(--steel);
+    }
+
+    /* ── EXPERIENCE ── */
+    .experience { background: var(--ink); }
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2.5rem;
+      padding: 2.8rem 0;
+      border-top: 1px solid var(--rule);
+      position: relative;
+    }
+    .timeline-item:last-child { border-bottom: 1px solid var(--rule); }
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--ghost);
+      padding-top: 0.25rem;
+      text-transform: uppercase;
+    }
+    .timeline-date .current {
+      display: block;
+      color: var(--cyan);
+      margin-bottom: 0.2rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+    }
+    .timeline-role {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--mist);
+      margin-bottom: 0.3rem;
+    }
+    .timeline-company {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.9rem;
+    }
+    .timeline-desc {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--ghost);
+    }
+
+    /* ── CAPABILITIES ── */
+    .capabilities { background: var(--navy); }
+    .caps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .cap-item {
+      background: var(--steel);
+      padding: 1.6rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .cap-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      flex-shrink: 0;
+    }
+    .cap-text {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ghost);
+    }
+
+    /* ── SYSTEMS ── */
+    .systems { background: var(--ink); }
+    .systems-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .sys-group {}
+    .sys-group-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .sys-list { list-style: none; }
+    .sys-list li {
+      font-size: 0.88rem;
+      color: var(--ghost);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .sys-list li::before {
+      content: '';
+      width: 4px; height: 4px;
+      background: var(--cyan);
+      border-radius: 50%;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    /* ── EDUCATION ── */
+    .education { background: var(--navy); }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .edu-card {
+      background: var(--steel);
+      border: 1px solid var(--rule);
+      padding: 2.5rem;
+      position: relative;
+    }
+    .edu-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--cyan);
+    }
+    .edu-degree {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--mist);
+      margin-bottom: 0.4rem;
+    }
+    .edu-school {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ghost);
+      margin-bottom: 0.3rem;
+    }
+    .edu-year {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: var(--steel);
+      border-top: 1px solid var(--rule);
+      text-align: center;
+      padding: 6rem 3rem;
+    }
+    .contact-headline {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--mist);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .contact-sub {
+      font-size: 1rem;
+      color: var(--ghost);
+      margin-bottom: 2.5rem;
+    }
+    .contact-email {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--cyan);
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .contact-email:hover { background: #33CCFF; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid var(--rule);
+      padding: 1.8rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-name {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ghost);
+    }
+    .footer-loc {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ghost);
+    }
+    .footer-email {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--ghost);
+      text-decoration: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 7rem 2rem 3rem; }
+      .hero-right { height: 360px; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-stats { flex-direction: row; flex-wrap: wrap; }
+      .caps-grid { grid-template-columns: repeat(2, 1fr); }
+      .systems-grid { grid-template-columns: 1fr 1fr; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .container { padding: 0 1.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .caps-grid { grid-template-columns: 1fr; }
+      .systems-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-name">Heather Williams</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#capabilities">Skills</a></li>
+      <li><a href="#systems">Systems</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Discipline — Mechanical Design Engineering</p>
+      <h1 class="hero-name">
+        Heather
+        <span>Williams</span>
+      </h1>
+      <p class="hero-tagline">
+        <strong>Mechanical Design Engineer &amp; CAD Specialist</strong> turning complex
+        engineering problems into precise models, validated designs, and documentation
+        that manufacturing teams can build from.
+      </p>
+      <div class="hero-meta">
+        <span>Knoxville, TN</span>
+        <span>M.S. Mech. Engineering — UTK</span>
+        <span>9+ Years</span>
+      </div>
+      <a href="mailto:Heather9426@outlook.com" class="hero-cta">Email Heather →</a>
+    </div>
+    <div class="hero-right">
+      <img src="public/heather.jpg" alt="Heather Williams" />
+      <div class="hero-overlay"></div>
+      <div class="hero-badge">
+        <div class="hero-badge-item">
+          <div class="hero-badge-label">Design Domain</div>
+          <div class="hero-badge-value">Mechanical &amp; CAD</div>
+        </div>
+        <div class="hero-badge-item">
+          <div class="hero-badge-label">Sectors</div>
+          <div class="hero-badge-value">Aero · Health · Auto</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-stats">
+          <div class="stat-block">
+            <div class="stat-number">9+</div>
+            <div class="stat-label">Years in Engineering</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-number">12+</div>
+            <div class="stat-label">CAD &amp; Simulation Platforms</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-number">03</div>
+            <div class="stat-label">Industries Served</div>
+          </div>
+        </div>
+        <div class="about-body">
+          <p class="section-eyebrow">About — How the models are made</p>
+          <p>
+            Heather Williams builds the design infrastructure behind products that have to
+            perform under real-world constraints: aerospace components, healthcare devices,
+            and automotive systems. As a <strong>Mechanical Design Engineer and CAD
+            Specialist</strong>, she translates engineering requirements into precise parametric
+            models and validated assemblies that manufacturing teams can execute.
+          </p>
+          <p>
+            Her path runs through nuclear and aerospace research at Oak Ridge, multi-sector
+            consulting across automotive, healthcare, and technology, and AI model evaluation —
+            giving her a design toolkit shaped by production realities, not just theory.
+          </p>
+          <p>
+            She holds a Master's and Bachelor's degree in Mechanical Engineering, both from
+            the University of Tennessee, Knoxville's Tickle College of Engineering.
+          </p>
+          <div class="about-tags">
+            <span class="tag">Parametric Modeling</span>
+            <span class="tag">Assembly Design</span>
+            <span class="tag">FEA / Simulation</span>
+            <span class="tag">GD&amp;T</span>
+            <span class="tag">Scientific Visualization</span>
+            <span class="tag">R&amp;D</span>
+            <span class="tag">Technical Documentation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience" id="experience">
+    <div class="container">
+      <p class="section-eyebrow">Experience — Career ledger</p>
+      <h2 class="section-title">Where the designs were built.</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-date">
+            <span class="current">Current</span>
+            2021 — Present
+          </div>
+          <div>
+            <div class="timeline-role">Mechanical Design Engineer / CAD Specialist</div>
+            <div class="timeline-company">Nashville Metro · Automotive, Healthcare &amp; Tech Consulting</div>
+            <p class="timeline-desc">
+              Leads mechanical design, CAD modeling, and product development across a
+              multi-sector consulting portfolio. Delivers parametric assemblies, engineering
+              documentation, and design validation support for clients in automotive, healthcare
+              interface design, and technology.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2018 — 2025</div>
+          <div>
+            <div class="timeline-role">AI Expert Tutor</div>
+            <div class="timeline-company">Scale AI · Remote (Part-Time)</div>
+            <p class="timeline-desc">
+              Provided expert technical evaluation for AI model training — assessing
+              engineering content, annotating data, and conducting RLHF evaluation across
+              multimodal and technical domains. Applied deep subject-matter expertise to
+              improve AI reasoning in mechanical and scientific contexts.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2016 — 2021</div>
+          <div>
+            <div class="timeline-role">CAD Drafter / Engineering Intern</div>
+            <div class="timeline-company">Knoxville / Oak Ridge Region · Nuclear, Aerospace &amp; Research</div>
+            <p class="timeline-desc">
+              Built the technical foundation of her engineering career in one of the most
+              demanding design environments in the country — drafting, modeling, and analysis
+              support for nuclear and aerospace research institutions across the Oak Ridge corridor.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="capabilities" id="capabilities">
+    <div class="container">
+      <p class="section-eyebrow">Capabilities — Core skills</p>
+      <h2 class="section-title">What Heather brings to every project.</h2>
+      <div class="caps-grid">
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Mechanical Design</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">CAD Modeling &amp; Drafting</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Parametric Modeling</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Assembly Design</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Product Development</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Engineering Analysis</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">FEA &amp; Simulation</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Scientific Visualization</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">GD&amp;T</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Design Validation</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Manufacturing Support</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Engineering Documentation</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Prototyping</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Technical Problem Solving</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">Research &amp; Development</span></div>
+        <div class="cap-item"><span class="cap-dot"></span><span class="cap-text">AI Model Evaluation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEMS -->
+  <section class="systems" id="systems">
+    <div class="container">
+      <p class="section-eyebrow">Systems — Tools &amp; Platforms</p>
+      <h2 class="section-title">The full engineering stack.</h2>
+      <div class="systems-grid">
+
+        <div class="sys-group">
+          <div class="sys-group-label">CAD &amp; Mechanical Design</div>
+          <ul class="sys-list">
+            <li>AutoCAD Mechanical</li>
+            <li>Autodesk Inventor Professional</li>
+            <li>Fusion 360</li>
+            <li>Rhino 3D</li>
+            <li>Solid Edge</li>
+            <li>Onshape</li>
+            <li>FreeCAD</li>
+            <li>SolveSpace / LibreCAD</li>
+            <li>OpenSCAD / QCAD</li>
+          </ul>
+        </div>
+
+        <div class="sys-group">
+          <div class="sys-group-label">Engineering Analysis &amp; Simulation</div>
+          <ul class="sys-list">
+            <li>ANSYS Mechanical</li>
+            <li>ANSYS Workbench</li>
+            <li>COMSOL Multiphysics</li>
+            <li>Autodesk Nastran</li>
+            <li>SimScale</li>
+            <li>CalculiX</li>
+            <li>OpenFOAM</li>
+          </ul>
+          <div class="sys-group-label" style="margin-top:1.8rem;">Scientific Visualization</div>
+          <ul class="sys-list">
+            <li>ParaView</li>
+            <li>VisIt</li>
+            <li>Tecplot</li>
+            <li>Blender / KeyShot</li>
+          </ul>
+        </div>
+
+        <div class="sys-group">
+          <div class="sys-group-label">Technical Computing</div>
+          <ul class="sys-list">
+            <li>MATLAB</li>
+            <li>Python / Jupyter</li>
+            <li>GNU Octave</li>
+          </ul>
+          <div class="sys-group-label" style="margin-top:1.8rem;">Manufacturing &amp; CAM</div>
+          <ul class="sys-list">
+            <li>Inventor CAM</li>
+            <li>Cura / PrusaSlicer</li>
+            <li>FreeCAD Path Workbench</li>
+          </ul>
+          <div class="sys-group-label" style="margin-top:1.8rem;">Collaboration &amp; Version Control</div>
+          <ul class="sys-list">
+            <li>Git / GitHub / GitLab</li>
+            <li>Confluence / SharePoint</li>
+            <li>Microsoft Office Suite</li>
+            <li>Scale AI Platform</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="education" id="education">
+    <div class="container">
+      <p class="section-eyebrow">Education — Academic record</p>
+      <h2 class="section-title">Built on rigorous engineering science.</h2>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-degree">Master of Science in Mechanical Engineering</div>
+          <div class="edu-school">University of Tennessee, Knoxville · Tickle College of Engineering</div>
+          <div class="edu-year">2021</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree">Bachelor of Science in Mechanical Engineering</div>
+          <div class="edu-school">University of Tennessee, Knoxville · Tickle College of Engineering</div>
+          <div class="edu-year">2016</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <p class="section-eyebrow" style="justify-content:center;display:flex;">Contact — Let's talk engineering.</p>
+    <h2 class="contact-headline">Ready to build something precise?</h2>
+    <p class="contact-sub">Reach out for design engineering, CAD modeling, or technical collaboration.</p>
+    <a href="mailto:Heather9426@outlook.com" class="contact-email">Email Heather →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">Heather Williams — Mechanical Design Engineer</span>
+    <span class="footer-loc">Knoxville, Tennessee</span>
+    <a href="mailto:Heather9426@outlook.com" class="footer-email">Heather9426@outlook.com</a>
+  </footer>
+
+</body>
+</html>
